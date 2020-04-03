@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.carnival_games_project_vr.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\alex_\\OneDrive\\Desktop\\VR_Carnival_Games\\CMPS_499_VR_Carnival_Games\\Carnival_Games_Project_VR\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "Carnival_Games_Project_VR [Testing]"
+        }
+      }
+    }
+  ]
+}

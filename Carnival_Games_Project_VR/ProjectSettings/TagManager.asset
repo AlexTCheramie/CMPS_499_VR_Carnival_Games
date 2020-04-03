@@ -6,6 +6,11 @@ TagManager:
   tags:
   - targetKillZone
   - target
+  - projectile
+  - FxTemporaire
+  - PlayerHand
+  - Bullet
+  - Ticket
   layers:
   - Default
   - TransparentFX

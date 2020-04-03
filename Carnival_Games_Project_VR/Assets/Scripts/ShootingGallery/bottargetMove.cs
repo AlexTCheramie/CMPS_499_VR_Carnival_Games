@@ -26,5 +26,10 @@ public class bottargetMove : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(gameObject);
+            shootingGallery.addTargetScore(1);
+        }
     }
 }
