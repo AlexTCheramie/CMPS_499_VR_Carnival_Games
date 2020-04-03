@@ -19,6 +19,8 @@ public class gun : MonoBehaviour
     public GameObject Bullet;
     public float bulletSpeed = 1f;
     public GameObject bulletSource;
+    public GameObject topTarget;
+    public GameObject botTarget;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,6 @@ public class gun : MonoBehaviour
             if (gripAction.GetStateDown(SteamVR_Input_Sources.RightHand) || gripAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
             {
                 isHeld = true;
-                targetScript.gunPickup = true;
                 //var rotationVec = transform.rotation.eulerAngles;
                 //rotationVec.x = 0;
                 //rotationVec.y = 80;
@@ -47,7 +48,13 @@ public class gun : MonoBehaviour
                 transform.rotation = rightHand.gameObject.transform.rotation;
                 transform.position = rightHand.gameObject.transform.position; 
                 transform.parent = rightHand.gameObject.transform;
+                if ((topTarget.GetComponent<targetScript>().gamestarted == false) && (botTarget.GetComponent<targetScript>().gamestarted == false))
+                {
+                    topTarget.GetComponent<targetScript>().gunPickup = true;
+                    botTarget.GetComponent<targetScript>().gunPickup = true;
+                }
             }
+            
         }
         /*if (isHeld)
         {

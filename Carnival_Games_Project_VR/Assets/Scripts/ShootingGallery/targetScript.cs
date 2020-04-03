@@ -8,7 +8,7 @@ public class targetScript : MonoBehaviour
     public GameObject target;
     public float duration = 5.0f;
     public float playTime = 30.0f;
-    public static bool gunPickup = false;
+    public  bool gunPickup = false;
     public bool gamestarted = false;
     // Start is called before the first frame update
     void Start()
@@ -18,14 +18,19 @@ public class targetScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if (gunPickup && gamestarted == false)
+        if ((gunPickup == true) && (gamestarted == false))
         {
             gamestarted = true;
             StartCoroutine(Countdown());
             gunPickup = false;
         }
+    }
+
+    void spawnFirstTarget()
+    {
+        Instantiate(target, gameObject.transform);
     }
 
     void spawnTarget()
@@ -36,12 +41,14 @@ public class targetScript : MonoBehaviour
 
     private IEnumerator Countdown()
     {
-        countdownTimer.startCountdownTimer(5.9f);
+        countdownTimer.startCountdownTimer(5f);
         yield return new WaitForSeconds(duration);
+        spawnFirstTarget();
         StartCoroutine(SpawnDelay());
-        countdownTimer.startCountdownTimer(30.9f);
+        countdownTimer.startCountdownTimer(30f);
         yield return new WaitForSeconds(playTime);
         StopAllCoroutines();
+        gamestarted = false;
         Ticket.addTicketAmt(shootingGallery.shootScore);
         shootingGallery.shootScore = 0;
     }

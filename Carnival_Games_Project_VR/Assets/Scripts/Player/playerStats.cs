@@ -14,7 +14,7 @@ public class playerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        print("player has " + playerTickets + " tickets");
     }
 
     public static void addPlayerTickets(float amt)

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6412836257483283583}
   - component: {fileID: 7475006379968389026}
   m_Layer: 0
-  m_Name: Ticket 1
+  m_Name: Ticket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.1, y: 1.1, z: 1.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6412836257483283583
 Rigidbody:
@@ -123,3 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87910941f961ec5498d0618698f20518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabgrip:
+    actionPath: /actions/default/in/GrabGrip
+    needsReinit: 0
+  playerHandHere: 0
