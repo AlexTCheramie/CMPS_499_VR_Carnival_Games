@@ -37,8 +37,8 @@ public class moveMent : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            topTargetSpawn.GetComponent<targetScript>().StartTargets();
-            botTargetSpawn.GetComponent<targetScript>().StartTargets();
+            //topTargetSpawn.GetComponent<targetScript>().StartTargets();
+            //botTargetSpawn.GetComponent<targetScript>().StartTargets();
         }
 
         transform.position = pos;
