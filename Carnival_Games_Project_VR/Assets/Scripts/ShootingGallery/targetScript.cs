@@ -10,11 +10,15 @@ public class targetScript : MonoBehaviour
     public float playTime = 30.0f;
     public  bool gunPickup = false;
     public bool gamestarted = false;
+    private Vector3 pos;
+    private Quaternion rot;
     // Start is called before the first frame update
     void Start()
     {
         //gunPickup = false;
         //StartCoroutine(Countdown());
+        pos = gameObject.transform.position;
+        rot = gameObject.transform.rotation;
     }
 
     // Update is called once per frame
@@ -30,12 +34,12 @@ public class targetScript : MonoBehaviour
 
     void spawnFirstTarget()
     {
-        Instantiate(target, gameObject.transform);
+        Instantiate(target, pos, rot);
     }
 
     void spawnTarget()
     {
-        Instantiate(target);
+        Instantiate(target, pos, rot);
         StartCoroutine(SpawnDelay());
     }
 

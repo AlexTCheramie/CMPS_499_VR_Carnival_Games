@@ -45,6 +45,7 @@ public class gun : MonoBehaviour
                 //rotationVec.y = 80;
                 //rotationVec.z = 0;
                 //transform.rotation = Quaternion.Euler(rotationVec);
+                //transform.SetParent(rightHand.gameObject.transform, false);
                 transform.rotation = rightHand.gameObject.transform.rotation;
                 transform.position = rightHand.gameObject.transform.position; 
                 transform.parent = rightHand.gameObject.transform;

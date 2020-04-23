@@ -310,8 +310,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8483909681585124769}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.164, y: 3.093, z: 8.956}
-  m_LocalScale: {x: 0.6, y: 0.01, z: 0.6}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.01, z: 1}
   m_Children:
   - {fileID: 8483909680047814981}
   - {fileID: 8483909681374283792}
@@ -396,6 +396,7 @@ MonoBehaviour:
   target: {fileID: 4135926780050962250, guid: b8e25f8a725a2db4b829d943ffc935bf, type: 3}
   duration: 5
   playTime: 35
+  gunPickup: 0
   gamestarted: 0
 --- !u!1 &8483909681930038446
 GameObject:
