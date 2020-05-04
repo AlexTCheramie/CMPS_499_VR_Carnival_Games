@@ -24,6 +24,8 @@ public class pickup_laser : MonoBehaviour
     public GameObject Bullet;
     public float bulletSpeed = 10f;
     public GameObject bulletSource;
+    public GameObject pickupAudio;
+
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,8 @@ public class pickup_laser : MonoBehaviour
             {
                 if (gripAction.GetStateDown(SteamVR_Input_Sources.RightHand) || gripAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
                 {
+                    pickupAudio.GetComponent<AudioSource>().enabled = true;
+                    StartCoroutine(pickupSound());
                     isHeld = true;
                     transform.SetParent(rightHand.gameObject.transform, false);
                     Quaternion rot = Quaternion.Euler(rightHand.transform.rotation.x, rightHand.transform.position.y, rightHand.transform.position.z);
@@ -59,7 +63,7 @@ public class pickup_laser : MonoBehaviour
             if (isHeld)
             {
 
-                if (timer > timeBetweenBullets && TriggerPress.GetStateDown(SteamVR_Input_Sources.Any))
+                if (timer > timeBetweenBullets && TriggerPress.GetStateDown(SteamVR_Input_Sources.RightHand))
                 {
                     shoot();
                 }
@@ -80,6 +84,8 @@ public class pickup_laser : MonoBehaviour
                 {
                     if (gripAction.GetStateDown(SteamVR_Input_Sources.RightHand) || gripAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
                     {
+                        pickupAudio.GetComponent<AudioSource>().enabled = true;
+                        StartCoroutine(pickupSound());
                         playerStats.addPlayerTickets(0 - cost);
                         transform.Find("price_gun").GetComponent<MeshRenderer>().enabled = false;
                         isHeld = true;
@@ -92,7 +98,7 @@ public class pickup_laser : MonoBehaviour
             }
             if (isHeld)
             {
-                if (timer > timeBetweenBullets && TriggerPress.GetStateDown(SteamVR_Input_Sources.Any))
+                if (timer > timeBetweenBullets && TriggerPress.GetStateDown(SteamVR_Input_Sources.RightHand))
                 {
                     shoot();
                 }
@@ -129,9 +135,23 @@ public class pickup_laser : MonoBehaviour
 
     public void shoot()
     {
+        gameObject.GetComponent<AudioSource>().enabled = true;
+        StartCoroutine(sound());
         //Quaternion rot = Quaternion.Euler(bulletSource.transform.position.x, bulletSource.transform.position.y-90, bulletSource.transform.position.z);
         currentBullet = Instantiate(Bullet, bulletSource.transform.position, bulletSource.transform.rotation);
         currentBullet.GetComponent<Rigidbody>().AddForce(rightHand.transform.forward * bulletSpeed);
         Destroy(currentBullet, bulletRange);
+    }
+
+    IEnumerator sound()
+    {
+        yield return new WaitForSeconds(gameObject.GetComponent<AudioSource>().clip.length);
+        gameObject.GetComponent<AudioSource>().enabled = false;
+    }
+
+    IEnumerator pickupSound()
+    {
+        yield return new WaitForSeconds(pickupAudio.GetComponent<AudioSource>().clip.length);
+        pickupAudio.GetComponent<AudioSource>().enabled = false;
     }
 }

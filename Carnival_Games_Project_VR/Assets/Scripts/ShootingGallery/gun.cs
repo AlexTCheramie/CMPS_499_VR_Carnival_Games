@@ -21,6 +21,7 @@ public class gun : MonoBehaviour
     public GameObject bulletSource;
     public GameObject topTarget;
     public GameObject botTarget;
+    public GameObject pickupAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +40,8 @@ public class gun : MonoBehaviour
         {
             if (gripAction.GetStateDown(SteamVR_Input_Sources.RightHand) || gripAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
             {
+                pickupAudio.GetComponent<AudioSource>().enabled = true;
+                StartCoroutine(pickupSound());
                 isHeld = true;
                 //var rotationVec = transform.rotation.eulerAngles;
                 //rotationVec.x = 0;
@@ -67,7 +70,7 @@ public class gun : MonoBehaviour
         }*/
 
         if (isHeld) {
-            if (timer > timeBetweenBullets && TriggerPress.GetStateDown(SteamVR_Input_Sources.Any))
+            if (timer > timeBetweenBullets && TriggerPress.GetStateDown(SteamVR_Input_Sources.RightHand))
             {
                 shoot();
             }
@@ -82,6 +85,8 @@ public class gun : MonoBehaviour
 
     public void shoot()
     {
+        gameObject.GetComponent<AudioSource>().enabled = true;
+        StartCoroutine(sound());
         Quaternion rot = Quaternion.Euler(bulletSource.transform.position.x, bulletSource.transform.position.y, bulletSource.transform.position.z);
         currentBullet = Instantiate(Bullet, bulletSource.transform.position, rot);
         //currentBullet.transform.Rotate(0, 90, 0);
@@ -112,5 +117,17 @@ public class gun : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         handhere = false;
+    }
+
+    IEnumerator sound()
+    {
+        yield return new WaitForSeconds(gameObject.GetComponent<AudioSource>().clip.length);
+        gameObject.GetComponent<AudioSource>().enabled = false;
+    }
+
+    IEnumerator pickupSound()
+    {
+        yield return new WaitForSeconds(pickupAudio.GetComponent<AudioSource>().clip.length);
+        pickupAudio.GetComponent<AudioSource>().enabled = false;
     }
 }

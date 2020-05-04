@@ -10,11 +10,13 @@ public class targetScript : MonoBehaviour
     public float playTime = 30.0f;
     public  bool gunPickup = false;
     public bool gamestarted = false;
+    public static bool gameover = false;
     private Vector3 pos;
     private Quaternion rot;
     // Start is called before the first frame update
     void Start()
     {
+        gameover = false;
         //gunPickup = false;
         //StartCoroutine(Countdown());
         pos = gameObject.transform.position;
@@ -26,6 +28,7 @@ public class targetScript : MonoBehaviour
     {
         if ((gunPickup == true) && (gamestarted == false))
         {
+            gameover = false;
             gamestarted = true;
             StartCoroutine(Countdown());
             gunPickup = false;
@@ -51,8 +54,10 @@ public class targetScript : MonoBehaviour
         StartCoroutine(SpawnDelay());
         countdownTimer.startCountdownTimer(30f);
         yield return new WaitForSeconds(playTime);
+        gameover = true;
         StopAllCoroutines();
         gamestarted = false;
+        gameover = false;
         Ticket.addTicketAmt(shootingGallery.shootScore);
         shootingGallery.shootScore = 0;
     }

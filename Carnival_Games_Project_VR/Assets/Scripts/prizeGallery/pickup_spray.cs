@@ -16,6 +16,8 @@ public class pickup_spray : MonoBehaviour
     private bool isHeld = false;
     public GameObject rightHand;
     public float cost = 20;
+    public GameObject pickupAudio;
+
 
     public float sprayDecay = 20;
     //public float timeBetweenSprayObjects = 1;
@@ -43,10 +45,12 @@ public class pickup_spray : MonoBehaviour
         //timer += Time.deltaTime;
         if (spray)
         {
+            gameObject.GetComponent<AudioSource>().enabled = true;
             startSpray();
 
-            if (TriggerPress.GetLastStateUp(SteamVR_Input_Sources.Any))
+            if (TriggerPress.GetLastStateUp(SteamVR_Input_Sources.RightHand))
             {
+                gameObject.GetComponent<AudioSource>().enabled = false;
                 spray = false;
             }
         }
@@ -57,6 +61,8 @@ public class pickup_spray : MonoBehaviour
             {
                 if (gripAction.GetStateDown(SteamVR_Input_Sources.RightHand) || gripAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
                 {
+                    pickupAudio.GetComponent<AudioSource>().enabled = true;
+                    StartCoroutine(pickupSound());
                     isHeld = true;
                     transform.SetParent(rightHand.gameObject.transform, false);
                     transform.rotation = rightHand.gameObject.transform.rotation;
@@ -66,7 +72,7 @@ public class pickup_spray : MonoBehaviour
 
             if (isHeld)
             {
-                if (TriggerPress.GetStateDown(SteamVR_Input_Sources.Any))
+                if (TriggerPress.GetStateDown(SteamVR_Input_Sources.RightHand))
                 {
                     spray = true;
                 }
@@ -87,6 +93,8 @@ public class pickup_spray : MonoBehaviour
                 {
                     if (gripAction.GetStateDown(SteamVR_Input_Sources.RightHand) || gripAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
                     {
+                        pickupAudio.GetComponent<AudioSource>().enabled = true;
+                        StartCoroutine(pickupSound());
                         playerStats.addPlayerTickets(0 - cost);
                         transform.Find("price_spray").GetComponent<MeshRenderer>().enabled = false;
                         isHeld = true;
@@ -99,7 +107,7 @@ public class pickup_spray : MonoBehaviour
             }
             if (isHeld)
             {
-                if (TriggerPress.GetStateDown(SteamVR_Input_Sources.Any))
+                if (TriggerPress.GetStateDown(SteamVR_Input_Sources.RightHand))
                 {
                     spray = true;
                 }
@@ -139,5 +147,11 @@ public class pickup_spray : MonoBehaviour
         //Quaternion rot = Quaternion.Euler(bulletSource.transform.position.x, bulletSource.transform.position.y-90, bulletSource.transform.position.z);
         currentSpray = Instantiate(sprayObject, spraySource.transform.position, spraySource.transform.rotation);
         Destroy(currentSpray, sprayDecay);
+    }
+
+    IEnumerator pickupSound()
+    {
+        yield return new WaitForSeconds(pickupAudio.GetComponent<AudioSource>().clip.length);
+        pickupAudio.GetComponent<AudioSource>().enabled = false;
     }
 }

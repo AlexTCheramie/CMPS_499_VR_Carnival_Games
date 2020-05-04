@@ -18,6 +18,10 @@ public class targetMove : MonoBehaviour
         Vector3 pos = transform.position;
         pos.x += targetSpeed * Time.deltaTime;
         transform.position = pos;
+        if (targetScript.gameover)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,6 +32,7 @@ public class targetMove : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Bullet"))
         {
+            targetSound.playSound();
             Destroy(gameObject);
             shootingGallery.addTargetScore(1);
         }
