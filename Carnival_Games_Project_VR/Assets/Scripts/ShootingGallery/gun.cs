@@ -34,6 +34,7 @@ public class gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(isHeld);
         timer += Time.deltaTime;
 
         if (handhere && isHeld == false)
@@ -85,6 +86,7 @@ public class gun : MonoBehaviour
 
     public void shoot()
     {
+        print("me shoot");
         gameObject.GetComponent<AudioSource>().enabled = true;
         StartCoroutine(sound());
         Quaternion rot = Quaternion.Euler(bulletSource.transform.position.x, bulletSource.transform.position.y, bulletSource.transform.position.z);
